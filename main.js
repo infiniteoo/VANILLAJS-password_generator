@@ -46,7 +46,6 @@ clipboardEl.addEventListener("click", () => {
   document.execCommand("copy");
   textarea.remove();
   alert("Password copied to clipboard!");
-  
 });
 
 // generate password function
@@ -97,4 +96,3 @@ function getRandomSymbol() {
   const symbols = "!@#$%^&*(){}[]=<>/,.";
   return symbols[Math.floor(Math.random() * symbols.length)];
 }
-generatePassword();
