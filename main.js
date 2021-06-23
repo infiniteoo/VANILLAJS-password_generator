@@ -1,1 +1,7 @@
-console.log(123);
+// generator functions
+
+function getRandomLower() {
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
+
+console.log(getRandomLower());
