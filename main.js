@@ -15,6 +15,7 @@ const randomFunc = {
   symbol: getRandomSymbol,
 };
 
+// generate password event listener
 generateEl.addEventListener("click", () => {
   const length = +lengthEl.value;
   const hasLower = lowercaseEl.checked;
@@ -22,11 +23,44 @@ generateEl.addEventListener("click", () => {
   const hasNumber = numbersEl.checked;
   const hasSymbol = symbolsEl.checked;
 
-  console.log(hasLower, hasUpper, hasNumber, hasSymbol);
+  resultEl.innerText = generatePassword(
+    hasLower,
+    hasUpper,
+    hasNumber,
+    hasSymbol,
+    length
+  );
 });
 
-// generator functions
+// generate password function
 
+function generatePassword(lower, upper, number, symbol, length) {
+  // 1. init password variable
+  let generatedPassword = "";
+
+  // 2. filter out unchecked types
+  const typesCount = lower + upper + number + symbol;
+  console.log("typesCount: " + typesCount);
+  const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(
+    (item) => Object.values(item)[0]
+  );
+  console.log("typesarr: ", typesArr);
+  if (typesCount === 0) {
+    return "";
+  }
+
+  // 3. loop over length call generator function for each type
+  for (let i = 0; i < length; i += typesCount) {
+    typesArr.forEach((type) => {
+      const funcName = Object.keys(type)[0];
+      console.log(funcName);
+      generatedPassword += randomFunc[funcName]();
+    });
+  }
+  // 4. add final password to the password variable and return
+}
+
+// generator functions
 function getRandomLower() {
   return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 }
@@ -43,4 +77,4 @@ function getRandomSymbol() {
   const symbols = "!@#$%^&*(){}[]=<>/,.";
   return symbols[Math.floor(Math.random() * symbols.length)];
 }
-console.log(getRandomSymbol());
+generatePassword();
