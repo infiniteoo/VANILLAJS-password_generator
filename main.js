@@ -40,11 +40,11 @@ function generatePassword(lower, upper, number, symbol, length) {
 
   // 2. filter out unchecked types
   const typesCount = lower + upper + number + symbol;
-  console.log("typesCount: " + typesCount);
+  /*  console.log("typesCount: " + typesCount); */
   const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(
     (item) => Object.values(item)[0]
   );
-  console.log("typesarr: ", typesArr);
+  /*  console.log("typesarr: ", typesArr); */
   if (typesCount === 0) {
     return "";
   }
@@ -53,11 +53,14 @@ function generatePassword(lower, upper, number, symbol, length) {
   for (let i = 0; i < length; i += typesCount) {
     typesArr.forEach((type) => {
       const funcName = Object.keys(type)[0];
-      console.log(funcName);
+      /* console.log(funcName); */
       generatedPassword += randomFunc[funcName]();
     });
   }
+
   // 4. add final password to the password variable and return
+  const finalPassword = generatedPassword.slice(0, length);
+  return finalPassword;
 }
 
 // generator functions
